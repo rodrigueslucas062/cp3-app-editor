@@ -91,7 +91,7 @@ export const HeadingDropdownMenu = forwardRef<
             data-disabled={!canToggle}
             aria-label="Format text as heading"
             aria-pressed={isActive}
-            tooltip="Heading"
+            tooltip="Título"
             {...buttonProps}
             ref={ref}
           >
@@ -109,11 +109,11 @@ export const HeadingDropdownMenu = forwardRef<
         <DropdownMenuContent align="start">
           <DropdownMenuGroup>
             {levels.map((level) => (
-              <DropdownMenuItem key={`heading-${level}`} asChild>
+              <DropdownMenuItem key={`Título-${level}`} asChild>
                 <HeadingButton
                   editor={editor}
                   level={level}
-                  text={`Heading ${level}`}
+                  text={`Título ${level}`}
                   showTooltip={false}
                 />
               </DropdownMenuItem>
