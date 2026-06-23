@@ -23,6 +23,7 @@ import {
   DropdownMenuItem,
   DropdownMenuGroup,
 } from "@/components/tiptap-ui-primitive/dropdown-menu"
+import { TextTIcon } from "@phosphor-icons/react"
 
 export interface HeadingDropdownMenuProps
   extends Omit<ButtonProps, "type">, UseHeadingDropdownMenuConfig {
@@ -99,7 +100,7 @@ export const HeadingDropdownMenu = forwardRef<
               children
             ) : (
               <>
-                <Icon className="tiptap-button-icon" />
+                <TextTIcon size={16} />
                 <ChevronDownIcon className="tiptap-button-dropdown-small" />
               </>
             )}

@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 
-import { SearchForm } from "@/components/search-form"
-import { VersionSwitcher } from "@/components/version-switcher"
+import { SearchForm } from "@/components/search-form";
+
 import {
   Sidebar,
   SidebarContent,
@@ -13,152 +13,111 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
-// This is sample data.
+import { images } from "@/lib/images";
+import Image from "next/image";
+import { SignOutIcon, TextTIcon } from "@phosphor-icons/react/dist/ssr";
+
+function truncateText(value: string, maxLength = 35): string {
+  if (value.length <= maxLength) {
+    return value;
+  }
+
+  return `${value.slice(0, maxLength)}...`;
+}
 const data = {
-  versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   navMain: [
     {
-      title: "Getting Started",
+      title: "Veículos",
       url: "#",
       items: [
         {
-          title: "Installation",
+          title: "Nova tabela FIPE é divulgada para junho",
           url: "#",
         },
         {
-          title: "Project Structure",
+          title: "Carros elétricos ganham incentivo em SP",
           url: "#",
         },
       ],
     },
     {
-      title: "Build Your Application",
+      title: "DETRAN",
       url: "#",
       items: [
         {
-          title: "Routing",
+          title: "Prazo para renovação da CNH é ampliado",
           url: "#",
         },
         {
-          title: "Data Fetching",
+          title: "Novo serviço digital facilita transferência",
           url: "#",
           isActive: true,
         },
         {
-          title: "Rendering",
+          title: "Consulta de multas recebe atualização",
           url: "#",
         },
         {
-          title: "Caching",
-          url: "#",
-        },
-        {
-          title: "Styling",
-          url: "#",
-        },
-        {
-          title: "Optimizing",
-          url: "#",
-        },
-        {
-          title: "Configuring",
-          url: "#",
-        },
-        {
-          title: "Testing",
-          url: "#",
-        },
-        {
-          title: "Authentication",
-          url: "#",
-        },
-        {
-          title: "Deploying",
-          url: "#",
-        },
-        {
-          title: "Upgrading",
-          url: "#",
-        },
-        {
-          title: "Examples",
+          title: "Agendamento online tem novo visual",
           url: "#",
         },
       ],
     },
     {
-      title: "API Reference",
+      title: "Trânsito",
       url: "#",
       items: [
         {
-          title: "Components",
+          title: "Fiscalização reforçada nas rodovias",
           url: "#",
         },
         {
-          title: "File Conventions",
+          title: "Operação reduz acidentes no feriado",
           url: "#",
         },
         {
-          title: "Functions",
-          url: "#",
-        },
-        {
-          title: "next.config.js Options",
-          url: "#",
-        },
-        {
-          title: "CLI",
-          url: "#",
-        },
-        {
-          title: "Edge Runtime",
+          title: "Novos radares entram em funcionamento",
           url: "#",
         },
       ],
     },
     {
-      title: "Architecture",
+      title: "Legislação",
       url: "#",
       items: [
         {
-          title: "Accessibility",
+          title: "Mudanças nas regras de emplacamento",
           url: "#",
         },
         {
-          title: "Fast Refresh",
+          title: "Projeto propõe CNH digital ampliada",
           url: "#",
         },
         {
-          title: "Next.js Compiler",
-          url: "#",
-        },
-        {
-          title: "Supported Browsers",
-          url: "#",
-        },
-        {
-          title: "Turbopack",
+          title: "Atualização do Código de Trânsito em debate",
           url: "#",
         },
       ],
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
-      <SidebarHeader>
-        <VersionSwitcher
-          versions={data.versions}
-          defaultVersion={data.versions[0]}
+      <SidebarHeader className="flex flex-col items-start">
+        <Image
+          src={images.logo}
+          alt="Logo"
+          className="h-8 w-auto object-contain pl-2 pt-2"
+          width={64}
+          height={32}
         />
         <SearchForm />
       </SidebarHeader>
       <SidebarContent>
-        {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
@@ -167,7 +126,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild isActive={item.isActive}>
-                      <a href={item.url}>{item.title}</a>
+                      <a href={item.url}>{truncateText(item.title)}</a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -175,8 +134,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
+        <div className="mt-auto">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton>
+                <SignOutIcon size={32} />
+                <span className="hover:text-red-800">Sair</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </div>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
