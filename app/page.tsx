@@ -6,7 +6,6 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Separator } from "radix-ui";
 
 export default function Home() {
   return (
@@ -14,17 +13,13 @@ export default function Home() {
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-            <SidebarTrigger className="-ml-1" />
-            <SidebarSeparator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
-          </header>
-         <SimpleEditor />
+          {/* <SidebarSeparator
+            orientation="vertical"
+            className="mr-2 data-[orientation=vertical]:h-4"
+          /> */}
+          <SimpleEditor />
         </SidebarInset>
       </SidebarProvider>
-      
     </div>
   );
 }
