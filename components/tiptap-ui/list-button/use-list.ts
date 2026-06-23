@@ -54,10 +54,10 @@ export const listIcons = {
 }
 
 export const listLabels: Record<ListType, string> = {
-  bulletList: "Bullet List",
-  orderedList: "Ordered List",
-  taskList: "Task List",
-}
+  bulletList: "Lista com marcadores",
+  orderedList: "Lista numerada",
+  taskList: "Lista de tarefas",
+};
 
 export const LIST_SHORTCUT_KEYS: Record<ListType, string> = {
   bulletList: "mod+shift+8",
