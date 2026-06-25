@@ -3,8 +3,6 @@ import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarSeparator,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 
 export default function Home() {

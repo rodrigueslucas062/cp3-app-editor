@@ -17,7 +17,7 @@ import {
 
 import { images } from "@/lib/images";
 import Image from "next/image";
-import { SignOutIcon, TextTIcon } from "@phosphor-icons/react/dist/ssr";
+import { SignOutIcon } from "@phosphor-icons/react/dist/ssr";
 
 function truncateText(value: string, maxLength = 35): string {
   if (value.length <= maxLength) {
@@ -26,83 +26,7 @@ function truncateText(value: string, maxLength = 35): string {
 
   return `${value.slice(0, maxLength)}...`;
 }
-const data = {
-  navMain: [
-    {
-      title: "Veículos",
-      url: "#",
-      items: [
-        {
-          title: "Nova tabela FIPE é divulgada para junho",
-          url: "#",
-        },
-        {
-          title: "Carros elétricos ganham incentivo em SP",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "DETRAN",
-      url: "#",
-      items: [
-        {
-          title: "Prazo para renovação da CNH é ampliado",
-          url: "#",
-        },
-        {
-          title: "Novo serviço digital facilita transferência",
-          url: "#",
-          isActive: true,
-        },
-        {
-          title: "Consulta de multas recebe atualização",
-          url: "#",
-        },
-        {
-          title: "Agendamento online tem novo visual",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Trânsito",
-      url: "#",
-      items: [
-        {
-          title: "Fiscalização reforçada nas rodovias",
-          url: "#",
-        },
-        {
-          title: "Operação reduz acidentes no feriado",
-          url: "#",
-        },
-        {
-          title: "Novos radares entram em funcionamento",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Legislação",
-      url: "#",
-      items: [
-        {
-          title: "Mudanças nas regras de emplacamento",
-          url: "#",
-        },
-        {
-          title: "Projeto propõe CNH digital ampliada",
-          url: "#",
-        },
-        {
-          title: "Atualização do Código de Trânsito em debate",
-          url: "#",
-        },
-      ],
-    },
-  ],
-};
+const data: any = [];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -118,15 +42,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SearchForm />
       </SidebarHeader>
       <SidebarContent>
-        {data.navMain.map((item) => (
+        {data?.navMain?.map((item: any) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={item.isActive}>
-                      <a href={item.url}>{truncateText(item.title)}</a>
+                {item?.items?.map((item: any) => (
+                  <SidebarMenuItem key={item?.title}>
+                    <SidebarMenuButton asChild isActive={item?.isActive}>
+                      <a href={item?.url}>{truncateText(item?.title)}</a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

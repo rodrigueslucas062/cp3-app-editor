@@ -12,7 +12,7 @@ import { Typography } from "@tiptap/extension-typography";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
-import { Selection } from "@tiptap/extensions";
+import { Placeholder, Selection } from "@tiptap/extensions";
 
 // --- UI Primitives ---
 import { Button } from "@/components/tiptap-ui-primitive/button";
@@ -86,8 +86,11 @@ const MainToolbarContent = ({
   isMobile: boolean;
 }) => {
   return (
-    <>
-      <SidebarTrigger />
+    <div className="flex w-full gap-2">
+      <div className="flex gap-2 items-center">
+        <SidebarTrigger />
+        <div>Publicar...</div>
+      </div>
       <Spacer />
 
       <ToolbarGroup>
@@ -152,7 +155,7 @@ const MainToolbarContent = ({
       <ToolbarGroup>
         <ThemeToggle />
       </ToolbarGroup>
-    </>
+    </div>
   );
 };
 
@@ -211,6 +214,9 @@ export function SimpleEditor() {
           openOnClick: false,
           enableClickSelection: true,
         },
+      }),
+      Placeholder.configure({
+        placeholder: "Comece a digitar seu artigo...",
       }),
       HorizontalRule,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
@@ -274,7 +280,7 @@ export function SimpleEditor() {
         <EditorContent
           editor={editor}
           role="presentation"
-          className="simple-editor-content"
+          className="simple-editor-content bg-gray-100 dark:bg-zinc-900 rounded-md"
         />
       </EditorContext.Provider>
     </div>
