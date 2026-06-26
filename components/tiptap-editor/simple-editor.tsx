@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { EditorContent, EditorContext, useEditor } from "@tiptap/react";
+import { Editor, EditorContent, EditorContext, useEditor } from "@tiptap/react";
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
@@ -65,22 +65,25 @@ import { useWindowSize } from "@/hooks/use-window-size";
 import { useCursorVisibility } from "@/hooks/use-cursor-visibility";
 
 // --- Components ---
-import { ThemeToggle } from "@/components/tiptap-templates/simple/theme-toggle";
+import { ThemeToggle } from "@/components/tiptap-editor/theme-toggle";
 
 // --- Lib ---
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils";
 
 // --- Styles ---
-import "@/components/tiptap-templates/simple/simple-editor.scss";
+import "@/components/tiptap-editor/simple-editor.scss";
 
-import content from "@/components/tiptap-templates/simple/data/content.json";
+import content from "@/components/tiptap-editor/simple/data/content.json";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { PublishPostDialog } from "./publish-post-dialog";
 
 const MainToolbarContent = ({
+  editor,
   onHighlighterClick,
   onLinkClick,
   isMobile,
 }: {
+  editor: Editor | null;
   onHighlighterClick: () => void;
   onLinkClick: () => void;
   isMobile: boolean;
@@ -89,7 +92,14 @@ const MainToolbarContent = ({
     <div className="flex w-full gap-2">
       <div className="flex gap-2 items-center">
         <SidebarTrigger />
-        <div>Publicar...</div>
+        <PublishPostDialog
+          editor={editor}
+          trigger={
+            <Button variant="primary" size="small">
+              Publicar...
+            </Button>
+          }
+        />
       </div>
       <Spacer />
 
@@ -265,6 +275,7 @@ export function SimpleEditor() {
         >
           {mobileView === "main" ? (
             <MainToolbarContent
+              editor={editor}
               onHighlighterClick={() => setMobileView("highlighter")}
               onLinkClick={() => setMobileView("link")}
               isMobile={isMobile}

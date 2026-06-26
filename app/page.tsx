@@ -18,7 +18,7 @@ export default function Home() {
     });
 
     if (!error) {
-      await supabase.auth.getSession(); // força sync
+      await supabase.auth.getSession();
 
       router.push("/editor");
       router.refresh();

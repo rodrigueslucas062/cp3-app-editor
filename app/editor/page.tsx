@@ -1,7 +1,7 @@
 import { AppSidebar } from "@/components/app-sidebar";
-import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
+import { SimpleEditor } from "@/components/tiptap-editor/simple-editor";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import AuthLayout from "../auth-layout";
+import AuthLayout from "./layout";
 
 export default function Editor() {
   return (
@@ -9,10 +9,6 @@ export default function Editor() {
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
-          {/* <SidebarSeparator
-            orientation="vertical"
-            className="mr-2 data-[orientation=vertical]:h-4"
-          /> */}
           <SimpleEditor />
         </SidebarInset>
       </SidebarProvider>
