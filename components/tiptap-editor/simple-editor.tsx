@@ -15,7 +15,6 @@ import { Superscript } from "@tiptap/extension-superscript";
 import { Placeholder, Selection } from "@tiptap/extensions";
 
 // --- UI Primitives ---
-import { Button } from "@/components/tiptap-ui-primitive/button";
 import { Spacer } from "@/components/tiptap-ui-primitive/spacer";
 import {
   Toolbar,
@@ -73,9 +72,10 @@ import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils";
 // --- Styles ---
 import "@/components/tiptap-editor/simple-editor.scss";
 
-import content from "@/components/tiptap-editor/simple/data/content.json";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { PublishPostDialog } from "./publish-post-dialog";
+import { SimpleEditorProps } from "@/app/editor/types";
+import { Button } from "../ui/button";
 
 const MainToolbarContent = ({
   editor,
@@ -95,8 +95,8 @@ const MainToolbarContent = ({
         <PublishPostDialog
           editor={editor}
           trigger={
-            <Button variant="primary" size="small">
-              Publicar...
+            <Button variant="default" size="default" className="px-4 rounded-xl">
+              Publicar notícia
             </Button>
           }
         />
@@ -198,7 +198,7 @@ const MobileToolbarContent = ({
   </>
 );
 
-export function SimpleEditor() {
+export function SimpleEditor({ post }: SimpleEditorProps) {
   const isMobile = useIsBreakpoint();
   const { height } = useWindowSize();
   const [mobileView, setMobileView] = useState<"main" | "highlighter" | "link">(
@@ -246,7 +246,7 @@ export function SimpleEditor() {
         onError: (error) => console.error("Upload failed:", error),
       }),
     ],
-    content,
+    content: "",
   });
 
   const rect = useCursorVisibility({
@@ -259,6 +259,12 @@ export function SimpleEditor() {
       setMobileView("main");
     }
   }, [isMobile, mobileView]);
+
+  useEffect(() => {
+    if (!editor || !post) return;
+
+    editor.commands.setContent(post.content_html);
+  }, [editor, post]);
 
   return (
     <div className="simple-editor-wrapper">

@@ -1,5 +1,5 @@
-@import '../styles/_variables.scss';
-@import '../styles/_keyframe-animations.scss';
+@import "../styles/_variables.scss";
+@import "../styles/_keyframe-animations.scss";
 
 @import "tailwindcss";
 
@@ -51,6 +51,11 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@theme {
+  --color-cp3-orange: #ff6a00;
+  --color-cp3-orange-hovered: #ff5a06;
 }
 
 :root {

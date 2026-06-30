@@ -12,8 +12,6 @@ export default async function AuthLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log("server user:", user);
-
   if (!user) {
     redirect("/");
   }

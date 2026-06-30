@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { DialogModal } from "../ui/dialog-modal";
 import { Toaster, toast } from "sonner";
 import { createPost } from "@/lib/supabase/posts/create-post";
+import { Spinner } from "../ui/spinner";
 
 interface PublishPostDialogProps {
   editor: Editor | null;
@@ -29,9 +30,30 @@ export function PublishPostDialog({ editor, trigger }: PublishPostDialogProps) {
   const [slug, setSlug] = useState("");
   const [category, setCategory] = useState("");
   const [excerpt, setExcerpt] = useState("");
-  const [coverImage, setCoverImage] = useState("");
+  const [coverImage, setCoverImage] = useState<string>("");
 
   const [loading, setLoading] = useState(false);
+
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = reject;
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function handleCoverImage(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    const base64 = await fileToBase64(file);
+
+    setCoverImage(base64);
+  }
 
   useEffect(() => {
     setSlug(generateSlug(title));
@@ -113,7 +135,7 @@ export function PublishPostDialog({ editor, trigger }: PublishPostDialogProps) {
               <Label>Categoria</Label>
 
               <Input
-                placeholder="Tecnologia"
+                placeholder="Tecnologia, financeiro, LGPD..."
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               />
@@ -134,11 +156,21 @@ export function PublishPostDialog({ editor, trigger }: PublishPostDialogProps) {
             <div className="space-y-2">
               <Label>Imagem de capa</Label>
 
-              <Input
-                placeholder="https://..."
-                value={coverImage}
-                onChange={(e) => setCoverImage(e.target.value)}
-              />
+              <div className="space-y-3">
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleCoverImage}
+                />
+
+                {coverImage && (
+                  <img
+                    src={coverImage}
+                    alt="Prévia da capa"
+                    className="h-40 w-full rounded-md border object-cover"
+                  />
+                )}
+              </div>
             </div>
 
             <Button
@@ -147,6 +179,7 @@ export function PublishPostDialog({ editor, trigger }: PublishPostDialogProps) {
               onClick={handlePublish}
             >
               {loading ? "Publicando..." : "Publicar artigo"}
+              {loading && <Spinner />}
             </Button>
           </div>
         }
